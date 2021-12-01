@@ -1,5 +1,7 @@
 <?php
 
+//Tested on PHP 7.4.3
+
 function balance (array $ledger) : array {
     $amounts = array_values($ledger);
 

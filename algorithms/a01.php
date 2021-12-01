@@ -1,5 +1,7 @@
 <?php
 
+//Tested on PHP 7.4.3
+
 function fizzBuzz (int $int) : string {
     return (($int%3 == 0) ? "Fizz" : "") . (($int%5 == 0) ? "Buzz" : "");
 }

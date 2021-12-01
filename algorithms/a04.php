@@ -1,5 +1,7 @@
 <?php
 
+//Tested on PHP 7.4.3
+
 function fibonacciNumber(int $n) : int {
     if ($n == 0) return 0;
 

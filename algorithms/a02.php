@@ -1,5 +1,7 @@
 <?php
 
+//Tested on PHP 7.4.3
+
 function distribute(int $nServers,int $nJobs): array {
     $distributedJobs = [];
 
