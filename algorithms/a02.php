@@ -5,9 +5,9 @@
 function distribute(int $nServers,int $nJobs): array {
     $distributedJobs = [];
 
-    $minimumJobsForEachServer = $nJobs%$nServers;
+    $minimumJobsForEachServer = intval($nJobs/$nServers);
 
-    $remainingJobs = $nJobs - ($minimumJobsForEachServer * $nServers);
+    $remainingJobs = $nJobs%$nServers;
 
     $nJobsForEachServer = array_fill(0, $nServers, $minimumJobsForEachServer);
 
@@ -30,5 +30,5 @@ function distribute(int $nServers,int $nJobs): array {
     return $distributedJobs;
 }
 
-print_r(distribute(4,10));
+print_r(distribute(4,13));
 echo PHP_EOL;
