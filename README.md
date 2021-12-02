@@ -21,3 +21,12 @@ docker run -it --rm -v "$(pwd)/src:/usr/src/kubops-golang" --name kubops-golang 
 # RUST
 
 run docker run -it --rm --name kubops-rust -v "$(pwd)/src:/usr/src/myapp" kubops-rust
+
+# JAVA
+
+OpenJDK 11
+
+access bash
+docker run -it --rm --name kubops-java kubops-java bash
+
+run ./mvnw spring-boot:run
