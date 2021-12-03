@@ -134,14 +134,4 @@ Note:
 
 # Rust
 
-Failed. I finished preparing the Dockerfile. However, the server kept returning empty response if the application is ran in the container.
-
-**To build**
-```
-docker build -t kupeops-rust .
-```
-
-**To run**
-```
-docker run -it --rm -p 8090:8090 -t kubeops-rust
-```
+Failed.
