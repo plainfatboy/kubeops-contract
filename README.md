@@ -13,13 +13,26 @@ docker run -it --rm -v "$(pwd)/src:/usr/src/kubops-golang" --name kubops-golang 
  - using env:   export GIN_MODE=release
 
 # Java
+**requires**
+1. OpenJDK 11
 
-OpenJDK 11
+**To test locally**
+```
+./mvnw test
+```
 
-access bash
-docker run -it --rm --name kubops-java kubops-java bash
+**To build**
+```
+./mvnw boot-spring:build
+docker build -t kubeops-java .
+```
 
-run ./mvnw spring-boot:run
+**To run**
+```
+docker run -it --rm -p 8080:8080 -t kupeops-java
+```
+The application will be available on http://localhost:8080
+
 
 # Node
 
@@ -40,14 +53,16 @@ npm test
 
 **To build**
 ```
+./mvnw package
 docker build -t kupeops-node .
 ```
 
 **To run**
 ```
-docker run -it --rm -p 8090:8090 -t kubeops-node
+docker run -it --rm -p 3000:3000 -t kubeops-node
 ```
 The application will be available on http://localhost:3000
+
 
 **To deploy and run on Kubernetes**
 1. Make deployment file
