@@ -1,0 +1,16 @@
+---
+apiVersion: getambassador.io/v2
+kind: Host
+metadata:
+  name: dev-host
+  namespace: ambassador
+spec:
+  hostname: dev.wasuwat.online
+  acmeProvider:
+    email: wasuwatp18@gmail.com
+  tlsSecret:
+    name: tls2-cert
+  requestPolicy:
+    insecure:
+      action: Redirect
+      additionalPort: 8080
