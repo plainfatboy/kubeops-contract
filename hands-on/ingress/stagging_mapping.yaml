@@ -1,0 +1,10 @@
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: stagging-backend
+  namespace: ambassador
+spec:
+  prefix: /
+  host: stagging.wasuwat.online
+  service: stagging.backend

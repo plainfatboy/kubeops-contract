@@ -1,0 +1,72 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
+
+name: stagging CI/CD
+
+on:
+  push:
+    branches:
+      - stagging
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - run: |
+          cd src
+          npm ci
+          npm test
+
+  push-docker-image:
+    needs: unit-tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - run: |
+          cd src
+          npm ci
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile.stagging --tag kubeops-node-stagging:$(git rev-parse --short HEAD)
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: push image to DigitalOcean
+        run: |
+          doctl registry login
+          docker tag kubeops-node-stagging:$(git rev-parse --short HEAD) registry.digitalocean.com/kubeops-sgp-1/kubeops-node-stagging:$(git rev-parse --short HEAD)
+          docker push registry.digitalocean.com/kubeops-sgp-1/kubeops-node-stagging:$(git rev-parse --short HEAD)
+
+  deploy:
+    needs: push-docker-image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Login to DigitalOcean container registry
+        run: |
+          doctl registry login
+      - name: Update deployment file
+        run: TAG=$(git rev-parse --short HEAD) && sed -i 's|<IMAGE>|registry.digitalocean.com/kubeops-sgp-1/kubeops-node-stagging:'${TAG}'|' $GITHUB_WORKSPACE/config/deployment-stagging.yaml
+      - name: Save DigitalOcean kubeconfig with short-lived credentials
+        run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 kubops-test
+      - name: Deploy to DigitalOcean Kubernetes
+        run: kubectl apply -f $GITHUB_WORKSPACE/config/deployment-stagging.yaml
+      - name: Verify deployment
+        run: kubectl rollout status deployment/stagging -n backend
+      
+      
+
+
+
+

@@ -1,0 +1,10 @@
+---
+apiVersion: getambassador.io/v2
+kind: Mapping
+metadata:
+  name: prod-backend
+  namespace: ambassador
+spec:
+  prefix: /
+  host: www.wasuwat.online
+  service: prod.backend

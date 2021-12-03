@@ -13,4 +13,4 @@ spec:
   requestPolicy:
     insecure:
       action: Redirect
-      additionalPort: 8080
+      additionalPort: 3000
