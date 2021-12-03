@@ -90,6 +90,19 @@ spec:
 kubectl apply -f deployment.yaml
 ```
 
+**CI/CD**
+The Github Actions's workflows and Kubernetes's deployment files can found at (hands-on/ci&cd/).
+
+Note:
+1. the managed kubernetes cluster from DigitalOcean is used to host the application.
+2. Digitalocean's container registry is used to host the Docker's images.
+3. There are 3 environments including development, stagging, and production.
+4. The applications are available at
+
+**production** https://www.wasuwat.online/
+**stagging** https://stagging.wasuwat.online/
+**development** https://dev.wasuwat.online/
+
 # Rust
 
 Failed. I finished preparing the Dockerfile. However, the server kept returning empty response if the application is ran in the container.
