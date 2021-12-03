@@ -18,8 +18,7 @@ spec:
     spec:
       containers:
         - name: prod
-          # image: registry.digitalocean.com/kubeops-sgp-1/kubeops-node-prod:6f844c0
-          image: registry.digitalocean.com/kubeops-sgp-1/kubeops-node-dev:6f844c0
+          image: registry.digitalocean.com/kubeops-sgp-1/kubeops-node-prod:8eb5784
           ports:
             - name: http
               containerPort: 3000
