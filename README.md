@@ -6,11 +6,23 @@ Failed
 
 # Golang
 
-docker run -it --rm -v "$(pwd)/src:/go" --name kubops-golang kubops-golang
-docker run -it --rm -v "$(pwd)/src:/usr/src/kubops-golang" --name kubops-golang kubops-golang
+**To test locally**
+```
+cd src
+go test ./...
+```
 
-[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
- - using env:   export GIN_MODE=release
+**To build**
+```
+docker build -t kubeops-go .
+```
+
+**To run**
+```
+docker run -it --rm -p 8080:8080 -d kubops-go
+```
+The application will be available on http://localhost:8080
+
 
 # Java
 **requires**
