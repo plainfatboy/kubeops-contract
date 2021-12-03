@@ -90,7 +90,9 @@ spec:
 kubectl apply -f deployment.yaml
 ```
 
-**CI/CD**
+**Kubernetes and CI/CD**
+Ambassador Edge Stack is used as ingress controller.
+
 The Github Actions's workflows and Kubernetes's deployment files can found at (hands-on/ci&cd/).
 
 Note:
